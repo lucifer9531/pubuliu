@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        .box {
+            border: 1px solid #ccc;
+            float: left;
+            padding: 5px;
+            margin: 2px;
+            box-shadow:1px 1px 1px 1px rgba(0,0,0,.1);
+        }
+    </style>
+    <script>
+        window.onload  = function() {
+            waterfalls("content","box");
+            var content = document.getElementById("content");
+            window.onscroll = function() {
+                if(loading())
+                {
+                    var json = [
+                        {"src":"01.jpg"},
+                        {"src":"02.jpg"},
+                        {"src":"03.jpg"},
+                        {"src":"04.jpg"},
+                        {"src":"05.jpg"},
+                        {"src":"06.jpg"},
+                        {"src":"07.jpg"},
+                        {"src":"08.jpg"},
+                        {"src":"09.jpg"},
+                        {"src":"10.jpg"},
+                        {"src":"11.jpg"},
+                        {"src":"12.jpg"},
+                        {"src":"13.jpg"},
+                        {"src":"14.jpg"},
+                        {"src":"15.jpg"},
+                        {"src":"16.jpg"},
+                        {"src":"17.jpg"},
+                        {"src":"18.jpg"},
+                        {"src":"19.jpg"},
+                        {"src":"20.jpg"}
+
+                    ];
+
+                    for(var i = 0; i<json.length;i++)
+                    {
+                        var box = document.createElement("div");
+                        box.className = "box";
+                        content.appendChild(box);
+
+                        var img = document.createElement("img");
+                        img.src = "images/" + json[i].src;
+                        box.appendChild(img);
+                    }
+
+                    waterfalls("content","box");
+                }
+            }
+        }
+
+        function waterfalls(parent,child) {
+            var eleId = document.getElementById(parent);
+            var boxs = eleId.children;
+            var boxWidth = boxs[0].offsetWidth;
+
+            var column = Math.floor(document.documentElement.clientWidth / boxWidth);
+
+            //  第二大步
+            var  arrHeight = [];
+            for(var i=0;i<boxs.length; i++)
+            {
+                if(i < column)
+                {
+                    arrHeight[i] = boxs[i].offsetHeight;
+
+                }
+
+                else
+                {
+                    var minHeight = Math.min.apply("",arrHeight);
+
+                    var minIndex = minHeightImgIndex(minHeight);
+
+                    boxs[i].style.position = "absolute";
+                    boxs[i].style.top = minHeight + 2 + "px";
+                    boxs[i].style.left = boxs[minIndex].offsetLeft + "px";
+                    arrHeight[minIndex] = arrHeight[minIndex] + boxs[i].offsetHeight;
+
+                }
+            }
+            function  minHeightImgIndex(height) {
+                for(var k in arrHeight)
+                {
+                    if(arrHeight[k] == height)
+                    {
+                        return k;
+                    }
+                }
+            }
+
+        }
+        function loading() {
+            var content = document.getElementById("content");
+            var boxs = content.children;
+
+            var lastbox = boxs[boxs.length-1];
+
+            var lastboxTop = lastbox.offsetTop;
+            var clientHeight = document.documentElement.clientHeight;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            if(lastboxTop <scrollTop + clientHeight )
+            {
+                return true;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container" id="content">
+    <div class="box">
+        <img src="images/01.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/02.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/03.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/04.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/05.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/06.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/07.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/08.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/09.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/10.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/11.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/12.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/13.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/14.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/15.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/16.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/17.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/18.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/19.jpg" alt=""/>
+    </div>
+    <div class="box">
+        <img src="images/20.jpg" alt=""/>
+    </div>
+</div>
+</body>
+</html>
